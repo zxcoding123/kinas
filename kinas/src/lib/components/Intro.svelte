@@ -108,36 +108,25 @@
 
 <!-- Intro Metric Sub-Section -->
 <section 
-    class="w-full bg-white border-t border-zinc-900 grid grid-cols-1 md:grid-cols-3 text-zinc-400 select-none font-mono transition-opacity duration-1000 overflow-hidden"
+    class="w-full bg-white   border-t border-zinc-900 grid grid-cols-1 md:grid-cols-3 px-8 md:px-16 py-16 text-zinc-400 select-none font-mono transition-opacity duration-1000"
     class:opacity-100={showContent}
     class:opacity-0={!showContent}
 >
-    <!-- Column 01: Design Philosophy -->
-    <div class="group p-14 border-b md:border-b-0 md:border-r border-zinc-900/60 flex flex-col gap-2 bg-white hover:bg-black transition-all duration-500 ease-out cursor-none">
-        <span class="text-black group-hover:text-zinc-500 text-xs tracking-wider transition-colors duration-500">
-            // 01. DESIGN PHILOSOPHY
-        </span>
-        <p class="font-sans text-sm text-zinc-500 group-hover:text-zinc-300 font-light mt-2 leading-relaxed transition-colors duration-500">
+    <div class="p-6 border-b md:border-b-0 md:border-r border-zinc-900/60 flex flex-col gap-2">
+        <span class="text-black text-xs tracking-wider">// DESIGN PHILOSOPHY</span>
+        <p class="font-sans text-sm text-zinc-500 font-light mt-2 leading-relaxed">
             High-fidelity architectural minimalism that communicates extreme intent. We strip out arbitrary noise in favor of stark, deliberate UI balance.
         </p>
     </div>
-
-    <!-- Column 02: Stack Performance -->
-    <div class="group p-14 border-b md:border-b-0 md:border-r border-zinc-900/60 flex flex-col gap-2 bg-white hover:bg-black transition-all duration-500 ease-out cursor-none">
-        <span class="text-black group-hover:text-zinc-500 text-xs tracking-wider transition-colors duration-500">
-            // 02. STACK PERFORMANCE
-        </span>
-        <p class="font-sans text-sm text-zinc-500 group-hover:text-zinc-300 font-light mt-2 leading-relaxed transition-colors duration-500">
+    <div class="p-6 border-b md:border-b-0 md:border-r border-zinc-900/60 flex flex-col gap-2">
+        <span class="text-black text-xs tracking-wider">// STACK PERFORMANCE</span>
+        <p class="font-sans text-sm text-zinc-500 font-light mt-2 leading-relaxed">
             Compiler-first execution setups built exclusively for extreme responsiveness, absolute state sync security, and light network overhead footprints.
         </p>
     </div>
-
-    <!-- Column 03: System Orchestration -->
-    <div class="group p-14 flex flex-col gap-2 bg-white hover:bg-black transition-all duration-500 ease-out cursor-none">
-        <span class="text-black group-hover:text-zinc-500 text-xs tracking-wider transition-colors duration-500">
-            // 03. SYSTEM ORCHESTRATION
-        </span>
-        <p class="font-sans text-sm text-zinc-500 group-hover:text-zinc-300 font-light mt-2 leading-relaxed transition-colors duration-500">
+    <div class="p-6 flex flex-col gap-2">
+        <span class="text-black text-xs tracking-wider">// SYSTEM ORCHESTRATION</span>
+        <p class="font-sans text-sm text-zinc-500 font-light mt-2 leading-relaxed">
             Resilient pipelines integrating fluid automated local processes and AI backend execution infrastructures configured around real-time transparency.
         </p>
     </div>

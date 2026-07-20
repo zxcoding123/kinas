@@ -21,7 +21,7 @@
 <section class="min-h-screen w-full bg-[#000000] font-sans text-[#d4d4d8] flex flex-col justify-between select-none relative overflow-hidden">
     
     <!-- Top Structural Menu Bar -->
-<div class="w-full h-16 border-t border-b border-[#27272a]/40 flex items-center justify-between px-8 md:px-16 bg-[#000000] backdrop-blur-sm z-10">
+<div class="w-full h-24 border-t border-b border-[#27272a]/40 flex items-center justify-between px-8 md:px-16 bg-[#000000] backdrop-blur-sm z-10">
         <!-- Left Side: Three Subtle White Dots -->
         <div class="flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full bg-zinc-100 opacity-80 shadow-[0_0_8px_rgba(255,255,255,0.5)]"></span>
