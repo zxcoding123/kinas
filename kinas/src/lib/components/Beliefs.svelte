@@ -51,7 +51,7 @@
       <span class="w-1.5 h-1.5 rounded-full bg-black opacity-50"></span>
       <span class="w-1.5 h-1.5 rounded-full bg-black opacity-30"></span>
     </div>
-    <span class="text-xl md:text-2xl font-mono tracking-widest text-zinc-900">// CREED ARCHITECTURE</span>
+    <span class="text-xl md:text-2xl font-mono tracking-widest text-zinc-900">CREED ARCHITECTURE</span>
   </div>
 
   <!-- Org Chart Master Container -->
