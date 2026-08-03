@@ -20,7 +20,7 @@
             <span class="w-1.5 h-1.5 rounded-full bg-black opacity-50"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-black opacity-30"></span>
         </div>
-        <div class="text-2xl font-mono tracking-widest text-black uppercase">
+        <div class="text-lg md:text-2xl font-mono tracking-widest text-black uppercase">
             The Sophisticated Mesh
         </div>
     </div>

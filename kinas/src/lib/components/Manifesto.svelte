@@ -28,7 +28,7 @@
             <span class="w-1.5 h-1.5 rounded-full bg-zinc-100 opacity-50"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-zinc-100 opacity-30"></span>
         </div>
-         <div class="text-2xl font-mono tracking-widest text-white uppercase">
+         <div class="text-lg md:text-2xl font-mono tracking-widest text-white uppercase">
             The Grand Manifesto.
         </div>
     </div>
@@ -44,7 +44,7 @@
 
 
         <!-- Right Column: The Architectural Manifesto text block group -->
-        <div class="lg:col-span-8 flex flex-col justify-center gap-12 lg:pl-16 py-20 lg:py-0 max-w-3xl text-right">
+        <div class="lg:col-span-8 flex flex-col justify-center gap-12 lg:pl-16 py-20 lg:py-0 max-w-3xl text-left lg:text-right">
             
             <!-- Block 1 -->
             <div 

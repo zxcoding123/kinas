@@ -45,7 +45,7 @@
     
     <!-- Section Structural Header -->
     <div class="w-full h-24 border-b border-[#27272a]/40 flex items-center justify-between px-8 md:px-16 bg-[#000000] backdrop-blur-sm z-10">
-         <div class="text-2xl font-mono tracking-widest text-white uppercase">
+         <div class="text-lg md:text-2xl font-mono tracking-widest text-white uppercase">
             The Technical Blueprint.
         </div>
         <div class="flex items-center gap-2">

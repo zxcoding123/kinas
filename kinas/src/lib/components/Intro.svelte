@@ -4,6 +4,7 @@
     const text = 'QUINAS';
     let showCursor = $state(false);
     let showContent = $state(false);
+    let mobileNavOpen = $state(false);
     
     // Real mouse coordinates
     let mouse = { x: -100, y: -100 };
@@ -66,22 +67,48 @@
         <a href="#services" class="hover:text-white transition-colors duration-300">// 03. SERVICES</a>
     </nav>
 
-    <!-- Operational State Indicator -->
-    <div class="flex items-center gap-2 font-mono text-[9px] text-zinc-500 uppercase tracking-wider">
+    <!-- Operational State Indicator (desktop) -->
+    <div class="hidden md:flex items-center gap-2 font-mono text-[9px] text-zinc-500 uppercase tracking-wider">
         <span class="w-1.5 h-1.5 rounded-full bg-green-500 opacity-80 shadow-[0_0_8px_rgba(255,255,255,0.5)] animate-pulse"></span>
         <span>SYS_ACTIVE</span>
     </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button
+        type="button"
+        class="md:hidden flex flex-col items-end justify-center gap-1.5 w-8 h-8 shrink-0"
+        aria-label="Toggle navigation menu"
+        aria-expanded={mobileNavOpen}
+        onclick={() => (mobileNavOpen = !mobileNavOpen)}
+    >
+        <span class="h-px bg-white transition-all duration-300" class:w-6={!mobileNavOpen} class:w-4={mobileNavOpen} class:rotate-45={mobileNavOpen} class:translate-y-[3px]={mobileNavOpen}></span>
+        <span class="h-px bg-white w-6 transition-opacity duration-300" class:opacity-0={mobileNavOpen}></span>
+        <span class="h-px bg-white transition-all duration-300" class:w-6={!mobileNavOpen} class:w-4={mobileNavOpen} class:-rotate-45={mobileNavOpen} class:-translate-y-[3px]={mobileNavOpen}></span>
+    </button>
 </header>
+
+<!-- Mobile Navigation Drawer -->
+<div
+    class="fixed top-20 left-0 w-full bg-black/95 backdrop-blur-md border-b border-zinc-900 z-40 md:hidden flex flex-col font-mono text-xs tracking-widest text-zinc-400 transition-all duration-300 overflow-hidden select-none"
+    class:max-h-60={mobileNavOpen}
+    class:opacity-100={mobileNavOpen}
+    class:max-h-0={!mobileNavOpen}
+    class:opacity-0={!mobileNavOpen}
+>
+    <a href="#about" class="px-8 py-4 border-b border-zinc-900/60 hover:text-white transition-colors duration-300" onclick={() => (mobileNavOpen = false)}>// 01. IDENTITY</a>
+    <a href="#blueprint" class="px-8 py-4 border-b border-zinc-900/60 hover:text-white transition-colors duration-300" onclick={() => (mobileNavOpen = false)}>// 02. BLUEPRINT</a>
+    <a href="#services" class="px-8 py-4 hover:text-white transition-colors duration-300" onclick={() => (mobileNavOpen = false)}>// 03. SERVICES</a>
+</div>
 
 <!-- Hero Section Entry Block -->
 <div 
     class="flex h-screen w-screen items-center justify-center bg-black overflow-hidden select-none relative"
 >
-    <div class="flex">
-    
+    <div class="flex px-4">
+
         {#each text.split('') as letter, i (i)}
             <span
-                class="text-white text-9xl font-bold inline-block animate-letter opacity-0 tracking-tight"
+                class="text-white text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold inline-block animate-letter opacity-0 tracking-tight"
                 style="animation-delay: {i * 150}ms;"
             >
                 {letter}

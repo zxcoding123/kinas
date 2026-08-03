@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chromium-cli help *)",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(node \"C:/Users/AHMAD/AppData/Local/Temp/claude/e--projects-svelte-projects-kinas/5ddad0a6-ec48-4f38-aafc-c47b000055ac/scratchpad/shot.mjs\")",
+      "Bash(cp \"C:/Users/AHMAD/AppData/Local/Temp/claude/e--projects-svelte-projects-kinas/5ddad0a6-ec48-4f38-aafc-c47b000055ac/scratchpad/shot.mjs\" \"e:/projects/svelte-projects/kinas/kinas/shot.mjs\")",
+      "Bash(node shot.mjs)"
+    ]
+  }
+}
