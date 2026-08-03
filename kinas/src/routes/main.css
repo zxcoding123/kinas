@@ -1,6 +1,16 @@
 *
 {
-    font-family: 'Google Sans', sans-serif; 
+    font-family: 'Google Sans', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Native cursor is replaced by the circular follower — only on pointer:fine devices */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
 }
 
 /* Fade Slight Right Animation for Kinas Letters */
@@ -28,19 +38,27 @@
   height: 32px;
   margin-left: -16px;
   margin-top: -16px;
-  
+
   /* Change border from translucent to solid white */
-  border: 2px solid #ffffff; 
+  border: 2px solid #ffffff;
   border-radius: 50%;
   pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  transform: scale(0);
+  scale: 0;
   opacity: 0;
+  /* Only takes effect once the entrance animation lets go of `scale` (see
+     `cursorPopped` in Intro.svelte) — smooths the shrink-on-hover over links. */
+  transition: scale 250ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Crucial properties for inversion */
+  /* Crucial properties for inversion: blends against whatever is behind it,
+     so it renders dark on light backgrounds and light on dark ones. Position
+     is driven by the `translate` custom property (mouse follow, set inline)
+     which is intentionally kept separate from `scale` (this animation) —
+     both live under the `transform` umbrella but as distinct CSS properties
+     they animate independently instead of clobbering one another. */
   background-color: transparent;
   mix-blend-mode: difference;
 }
@@ -60,15 +78,15 @@
 
 @keyframes bubblePop {
   0% {
-    transform: scale(0);
+    scale: 0;
     opacity: 0;
   }
   50% {
-    transform: scale(1.2);
+    scale: 1.2;
     opacity: 0.8;
   }
   100% {
-    transform: scale(1);
+    scale: 1;
     opacity: 1;
   }
 }

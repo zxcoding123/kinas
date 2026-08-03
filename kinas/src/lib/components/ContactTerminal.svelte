@@ -131,6 +131,7 @@
 <section
     bind:this={sectionEl}
     class:is-live={live}
+    id="contact"
     class="terminal-root w-full bg-white border-t border-zinc-900 select-none font-mono"
 >
     <!-- Section Header -->
@@ -153,30 +154,36 @@
         <!-- Terminal Window Frame -->
         <div class="border border-zinc-900 bg-black text-zinc-300 shadow-[0_0_0_1px_rgba(0,0,0,0.05)]">
             <!-- Window Title Bar -->
-            <div class="h-11 border-b border-zinc-800 flex items-center justify-between px-4 md:px-6 bg-black">
-                <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 border border-zinc-600"></span>
-                    <span class="text-[10px] tracking-widest text-zinc-500">CLIENT_INTEGRATION_PROTOCOL.exe</span>
+            <div class="h-11 border-b border-zinc-800 flex items-center justify-between gap-3 px-4 md:px-6 bg-black">
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="w-2.5 h-2.5 border border-zinc-600 shrink-0"></span>
+                    <span class="text-[10px] tracking-widest text-zinc-500 truncate">CLIENT_INTEGRATION_PROTOCOL.exe</span>
                 </div>
-                <span class="text-[10px] tracking-widest text-zinc-600">STATUS: {submitted ? 'COMPLETE' : 'AWAITING_INPUT'}</span>
+                <span class="hidden sm:inline text-[10px] tracking-widest text-zinc-600 shrink-0">STATUS: {submitted ? 'COMPLETE' : 'AWAITING_INPUT'}</span>
+                <span
+                    class="sm:hidden w-1.5 h-1.5 rounded-full shrink-0"
+                    class:bg-green-500={submitted}
+                    class:bg-zinc-600={!submitted}
+                    aria-label={submitted ? 'Status: complete' : 'Status: awaiting input'}
+                ></span>
             </div>
 
-            <!-- Step Breadcrumb -->
-            <div class="grid grid-cols-3 border-b border-zinc-800 text-[10px] md:text-xs tracking-wider">
+            <!-- Step Breadcrumb: stacked rows on mobile (full label fits), tabs side-by-side from sm up -->
+            <div class="flex flex-col sm:grid sm:grid-cols-3 border-b border-zinc-800 text-[10px] md:text-xs tracking-wider">
                 {#each steps as s, i (s.id)}
                     <button
                         type="button"
                         onclick={() => goToStep(s.id)}
                         disabled={submitted}
-                        class="flex items-center gap-2 px-4 md:px-6 py-3 border-r border-zinc-800 last:border-r-0 transition-colors duration-300 text-left disabled:cursor-default"
+                        class="flex items-center gap-2 px-4 md:px-6 py-3 border-b sm:border-b-0 sm:border-r border-zinc-800 last:border-b-0 sm:last:border-r-0 transition-colors duration-300 text-left disabled:cursor-default"
                         class:text-white={step === s.id}
                         class:text-zinc-600={step !== s.id}
                         class:bg-zinc-900={step === s.id}
                     >
-                        <span>[ {String(s.id).padStart(2, '0')}/03 ]</span>
-                        <span class="truncate">{s.key}</span>
+                        <span class="shrink-0 whitespace-nowrap">[ {String(s.id).padStart(2, '0')}/03 ]</span>
+                        <span class="whitespace-nowrap">{s.key}</span>
                         {#if (s.id === 1 && canAdvanceFrom1 && step !== 1) || (s.id === 2 && canAdvanceFrom2 && step !== 2)}
-                            <span class="text-zinc-500 ml-auto">✓</span>
+                            <span class="text-zinc-500 ml-auto shrink-0">✓</span>
                         {/if}
                     </button>
                 {/each}

@@ -1,49 +1,102 @@
 <script>
     import { onMount } from 'svelte';
-    
+    import SideRays from './SideRays.svelte';
+
     const text = 'QUINAS';
     let showCursor = $state(false);
     let showContent = $state(false);
     let mobileNavOpen = $state(false);
-    
+    let heroEl = $state();
+    let pastIntro = $state(false);
+    let isDesktop = $state(false);
+    let cursorPopped = $state(false);
+    let isHoveringLink = $state(false);
+
     // Real mouse coordinates
     let mouse = { x: -100, y: -100 };
     // Rendered cursor coordinates that lag behind
     let cursor = $state({ x: -100, y: -100 });
 
+    // Floating pill while the hero is in view; docks into the full-width bar once it's scrolled past
+    const navClass = $derived(
+        pastIntro
+            ? 'top-0 w-full h-20 rounded-none border-b bg-black/80 backdrop-blur-md px-8 md:px-16'
+            : 'top-4 sm:top-6 w-[92%] sm:w-3/4 h-16 rounded-2xl border bg-black/70 backdrop-blur-xl px-5 md:px-8 shadow-[0_10px_40px_rgba(0,0,0,0.45)]'
+    );
+
     onMount(() => {
+        // The circular follower cursor only makes sense on devices driven by a real
+        // mouse/trackpad — skip it entirely on touch devices (no pointer:fine).
+        isDesktop = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: fine)').matches;
+
         const timer = setTimeout(() => {
-            showCursor = true;
             showContent = true;
+            if (isDesktop) showCursor = true;
         }, 1550);
 
-        const handleMouseMove = (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        };
-
+        /** @type {ReturnType<typeof setTimeout> | undefined} */
+        let popTimer;
+        /** @type {number | undefined} */
         let frameId;
-        const updateCursor = () => {
-            const speed = 0.15; 
-            cursor.x += (mouse.x - cursor.x) * speed;
-            cursor.y += (mouse.y - cursor.y) * speed;
-            frameId = requestAnimationFrame(updateCursor);
-        };
+        /** @type {((e: MouseEvent) => void) | undefined} */
+        let handleMouseMove;
 
-        window.addEventListener('mousemove', handleMouseMove);
-        frameId = requestAnimationFrame(updateCursor);
+        if (isDesktop) {
+            document.documentElement.classList.add('custom-cursor-active');
+
+            // Release the entrance animation's grip on `scale` once it's done, so hover
+            // states can drive `scale` afterwards without fighting the animation's
+            // forwards-filled value.
+            popTimer = setTimeout(() => {
+                cursorPopped = true;
+            }, 400);
+
+            const interactiveSelector = 'a, button, [role="button"], input, textarea, select, summary';
+
+            handleMouseMove = (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+                const target = /** @type {HTMLElement | null} */ (e.target);
+                isHoveringLink = !!target?.closest?.(interactiveSelector);
+            };
+
+            const updateCursor = () => {
+                const speed = 0.35;
+                cursor.x += (mouse.x - cursor.x) * speed;
+                cursor.y += (mouse.y - cursor.y) * speed;
+                frameId = requestAnimationFrame(updateCursor);
+            };
+
+            window.addEventListener('mousemove', handleMouseMove);
+            frameId = requestAnimationFrame(updateCursor);
+        }
+
+        /** @type {IntersectionObserver | undefined} */
+        let io;
+        if (typeof IntersectionObserver !== 'undefined' && heroEl) {
+            io = new IntersectionObserver(
+                ([entry]) => {
+                    pastIntro = !entry.isIntersecting;
+                },
+                { rootMargin: '-96px 0px 0px 0px', threshold: 0 }
+            );
+            io.observe(heroEl);
+        }
 
         return () => {
             clearTimeout(timer);
-            window.removeEventListener('mousemove', handleMouseMove);
-            cancelAnimationFrame(frameId);
+            if (popTimer) clearTimeout(popTimer);
+            if (handleMouseMove) window.removeEventListener('mousemove', handleMouseMove);
+            if (frameId) cancelAnimationFrame(frameId);
+            if (io) io.disconnect();
+            document.documentElement.classList.remove('custom-cursor-active');
         };
     });
 </script>
 
-<!-- Structural Header (Fades in with content) -->
-<header 
-    class="fixed top-0 left-0 w-full h-20 border-b border-zinc-900 bg-black/80 backdrop-blur-md z-50 flex items-center justify-between px-8 md:px-16 transition-opacity duration-1000 select-none"
+<!-- Structural Header (Fades in with content; docks from a floating pill into the full-width bar once the hero scrolls out of view) -->
+<header
+    class="fixed left-1/2 -translate-x-1/2 z-50 flex items-center justify-between border-zinc-900 transition-[width,height,top,border-radius,background-color,padding,box-shadow,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] select-none {navClass}"
     class:opacity-100={showContent}
     class:opacity-0={!showContent}
 >
@@ -101,24 +154,55 @@
 </div>
 
 <!-- Hero Section Entry Block -->
-<div 
+<div
+    id="about"
+    bind:this={heroEl}
     class="flex h-screen w-screen items-center justify-center bg-black overflow-hidden select-none relative"
 >
-    <div class="flex px-4">
+    <!-- Ambient WebGL Ray Accent (Intro only) -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+        <SideRays
+            speed={2.5}
+            rayColor1="#EAB308"
+            rayColor2="#96c8ff"
+            intensity={2}
+            spread={2}
+            origin="top-right"
+            tilt={0}
+            saturation={1.5}
+            blend={0.75}
+            falloff={1.6}
+            opacity={1}
+        />
+    </div>
 
-        {#each text.split('') as letter, i (i)}
-            <span
-                class="text-white text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold inline-block animate-letter opacity-0 tracking-tight"
-                style="animation-delay: {i * 150}ms;"
-            >
-                {letter}
-            </span>
-        {/each}
+    <div class="relative z-10 flex flex-col items-center px-4">
+        <div class="flex">
+            {#each text.split('') as letter, i (i)}
+                <span
+                    class="text-white text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold inline-block animate-letter opacity-0 tracking-tight"
+                    style="animation-delay: {i * 150}ms;"
+                >
+                    {letter}
+                </span>
+            {/each}
+        </div>
+
+        <!-- Tagline -->
+        <div
+            class="mt-4 sm:mt-6 flex items-center gap-3 font-mono text-[10px] sm:text-xs tracking-[0.3em] text-zinc-500 transition-opacity duration-1000"
+            class:opacity-100={showContent}
+            class:opacity-0={!showContent}
+        >
+            <span class="h-px w-8 bg-zinc-700"></span>
+            SYSTEMS ENGINEERED WITH INTENT
+            <span class="h-px w-8 bg-zinc-700"></span>
+        </div>
     </div>
 
     <!-- Subtle Architectural Guideline Overlay -->
-    <div 
-        class="absolute bottom-16 left-8 md:left-16 font-mono text-[10px] text-zinc-600 tracking-[0.2em] transition-opacity duration-1000"
+    <div
+        class="absolute z-10 bottom-16 left-8 md:left-16 font-mono text-[10px] text-zinc-600 tracking-[0.2em] transition-opacity duration-1000"
         class:opacity-100={showContent}
         class:opacity-0={!showContent}
     >
@@ -126,9 +210,19 @@
     </div>
 
     {#if showCursor}
-        <div 
-            class="custom-cursor animate-cursor-pop fixed top-0 left-0 pointer-events-none z-50 w-4 h-4 rounded-full border border-white/40 bg-white/10 -translate-x-1/2 -translate-y-1/2"
-            style="transform: translate3d({cursor.x}px, {cursor.y}px, 0);"
+        <!-- `translate` positions it at the mouse; the pop-in animation drives `scale`
+             until it finishes, after which `cursorPopped` hands `scale` over to the
+             hover state (shrinks over links/buttons). Keeping position and scale on
+             separate CSS properties means they animate independently instead of one
+             clobbering the other. mix-blend-mode lives directly on this element so it
+             composites against the actual page content behind it (inverting over
+             light sections), not against an intermediate wrapper. -->
+        <div
+            class="custom-cursor"
+            class:animate-cursor-pop={!cursorPopped}
+            style:translate="{cursor.x}px {cursor.y}px"
+            style:scale={cursorPopped ? (isHoveringLink ? 0.55 : 1) : null}
+            style:opacity={cursorPopped ? 1 : null}
         ></div>
     {/if}
 </div>

@@ -1,5 +1,5 @@
 <!-- Section: The Quinas Protocol (Operational Capabilities) -->
-<section class="w-full bg-white border-t border-zinc-900 select-none font-mono">
+<section id="services" class="w-full bg-white border-t border-zinc-900 select-none font-mono">
     <!-- Injecting keyframes for the reveal effect directly so Tailwind can utilize it -->
     <style>
         @keyframes fadeSlideIn {

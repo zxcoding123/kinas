@@ -96,6 +96,7 @@
 <section
     bind:this={sectionEl}
     class:is-live={live}
+    id="ledger"
     class="ledger-root w-full bg-black text-zinc-300 border-t border-zinc-900 select-none font-mono"
 >
     <!-- Section Header -->

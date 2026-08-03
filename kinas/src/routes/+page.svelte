@@ -6,6 +6,7 @@
 	import Beliefs from '$lib/components/Beliefs.svelte';
 	import Ledger from '$lib/components/Ledger.svelte';
 	import ContactTerminal from '$lib/components/ContactTerminal.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 </script>
 
 <Intro />
@@ -15,3 +16,4 @@
 <Beliefs />
 <Ledger />
 <ContactTerminal />
+<Footer />
