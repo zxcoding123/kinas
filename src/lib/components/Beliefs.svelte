@@ -40,26 +40,27 @@
 </svelte:head>
 
 <section
+  id="creed"
   bind:this={sectionEl}
   class:is-live={live}
   class="creed-root w-full bg-white border-t border-zinc-900 select-none font-mono overflow-hidden"
 >
   <!-- Section Header -->
-  <div class="h-24 border-b border-zinc-900/40 flex items-center justify-between px-8 md:px-16 bg-white z-10 text-black">
+  <div class="h-20 md:h-24 border-b border-zinc-900/40 flex items-center justify-between gap-4 px-5 sm:px-8 md:px-16 bg-white z-10 text-black">
     <div class="flex items-center gap-2">
       <span class="w-1.5 h-1.5 rounded-full bg-black opacity-80 animate-pulse"></span>
       <span class="w-1.5 h-1.5 rounded-full bg-black opacity-50"></span>
       <span class="w-1.5 h-1.5 rounded-full bg-black opacity-30"></span>
     </div>
-    <span class="text-xl md:text-2xl font-mono tracking-widest text-zinc-900">CREED ARCHITECTURE</span>
+    <span class="text-base sm:text-xl md:text-2xl font-mono tracking-wider md:tracking-widest text-zinc-900">CREED ARCHITECTURE</span>
   </div>
 
   <!-- Org Chart Master Container -->
-  <div class="w-full max-w-7xl mx-auto flex flex-col items-center pt-20 pb-32 px-4">
+  <div class="w-full max-w-7xl mx-auto flex flex-col items-center pt-12 md:pt-20 pb-20 md:pb-32 px-6 md:px-4">
 
     <!-- LEVEL 1: ROOT CORNERSTONE -->
     <div
-      class="group relative p-8 border border-zinc-900 text-center bg-white hover:bg-black transition-all duration-500 ease-out min-w-[320px] animate-compile"
+      class="group relative p-6 md:p-8 border border-zinc-900 text-center bg-white hover:bg-black transition-all duration-500 ease-out w-full max-w-[320px] animate-compile"
       style="animation-delay: 200ms;"
     >
       <span class="text-zinc-400 group-hover:text-zinc-600 text-[10px] block mb-2 tracking-wider transition-colors duration-500">// LEVEL 01 // FOUNDATION</span>
@@ -70,21 +71,21 @@
     </div>
 
     <!-- Vertical Connector Root -> Branch -->
-    <div class="w-px bg-zinc-900 animate-draw-v" style="height: 64px; animation-delay: 800ms;"></div>
+    <div class="w-px bg-zinc-900 animate-draw-v h-10 lg:h-16" style="animation-delay: 800ms;"></div>
 
     <!-- LEVEL 2 & 3: THE OPERATIONAL MATRIX (4-COLUMN GRID) -->
     <div class="w-full flex flex-col items-center">
       <!-- Horizontal structural beam, spans the four column centres -->
       <div class="w-[75%] h-px bg-zinc-900 hidden lg:block animate-draw-h" style="animation-delay: 1100ms;"></div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full gap-16 lg:gap-0 pt-0 lg:pt-8 relative">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full gap-y-12 gap-x-8 lg:gap-0 pt-0 lg:pt-8 relative">
 
         <!-- COLUMN 1: INTENTIONAL EXECUTION -->
         <div class="flex flex-col items-center relative px-2">
           <div class="w-px bg-zinc-900 absolute left-1/2 -translate-x-1/2 hidden lg:block animate-draw-v" style="height: 32px; top: -32px; animation-delay: 1300ms;"></div>
 
           <div
-            class="group p-6 border border-zinc-900/40 bg-white hover:bg-black hover:border-zinc-900 transition-all duration-500 ease-out w-full max-w-[280px] text-center animate-compile"
+            class="group p-6 border border-zinc-900/40 bg-white hover:bg-black hover:border-zinc-900 transition-all duration-500 ease-out w-full max-w-[320px] lg:max-w-[280px] text-center animate-compile"
             style="animation-delay: 1500ms;"
           >
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[10px] block mb-2 transition-colors duration-500">// LEVEL 02 // EXECUTION</span>
@@ -94,11 +95,11 @@
             </p>
           </div>
 
-          <div class="w-px bg-zinc-900 hidden lg:block animate-draw-v" style="height: 48px; animation-delay: 2300ms;"></div>
+          <div class="w-px bg-zinc-900 animate-draw-v h-8 lg:h-12" style="animation-delay: 2300ms;"></div>
 
           <!-- LEVEL 3: ACCOUNTABILITY LEDGER -->
           <div
-            class="group p-5 border border-zinc-900/20 bg-white hover:bg-black hover:border-zinc-900/60 transition-all duration-500 ease-out w-full max-w-[250px] text-center animate-compile"
+            class="group p-5 border border-zinc-900/20 bg-white hover:bg-black hover:border-zinc-900/60 transition-all duration-500 ease-out w-full max-w-[320px] lg:max-w-[250px] text-center animate-compile"
             style="animation-delay: 2500ms;"
           >
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[9px] block mb-1 transition-colors duration-500">// LAYER 03 // LEDGER</span>
@@ -114,7 +115,7 @@
           <div class="w-px bg-zinc-900 absolute left-1/2 -translate-x-1/2 hidden lg:block animate-draw-v" style="height: 32px; top: -32px; animation-delay: 1400ms;"></div>
 
           <div
-            class="group p-6 border border-zinc-900/40 bg-white hover:bg-black hover:border-zinc-900 transition-all duration-500 ease-out w-full max-w-[280px] text-center animate-compile"
+            class="group p-6 border border-zinc-900/40 bg-white hover:bg-black hover:border-zinc-900 transition-all duration-500 ease-out w-full max-w-[320px] lg:max-w-[280px] text-center animate-compile"
             style="animation-delay: 1700ms;"
           >
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[10px] block mb-2 transition-colors duration-500">// LEVEL 02 // INTERACTION</span>
@@ -124,11 +125,11 @@
             </p>
           </div>
 
-          <div class="w-px bg-zinc-900 hidden lg:block animate-draw-v" style="height: 48px; animation-delay: 2500ms;"></div>
+          <div class="w-px bg-zinc-900 animate-draw-v h-8 lg:h-12" style="animation-delay: 2500ms;"></div>
 
           <!-- LEVEL 3: ANTI-BLINDNESS METRICS -->
           <div
-            class="group p-5 border border-zinc-900/20 bg-white hover:bg-black hover:border-zinc-900/60 transition-all duration-500 ease-out w-full max-w-[250px] text-center animate-compile"
+            class="group p-5 border border-zinc-900/20 bg-white hover:bg-black hover:border-zinc-900/60 transition-all duration-500 ease-out w-full max-w-[320px] lg:max-w-[250px] text-center animate-compile"
             style="animation-delay: 2700ms;"
           >
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[9px] block mb-1 transition-colors duration-500">// LAYER 03 // AUDITING</span>
@@ -144,7 +145,7 @@
           <div class="w-px bg-zinc-900 absolute left-1/2 -translate-x-1/2 hidden lg:block animate-draw-v" style="height: 32px; top: -32px; animation-delay: 1500ms;"></div>
 
           <div
-            class="group p-6 border border-zinc-900/40 bg-white hover:bg-black hover:border-zinc-900 transition-all duration-500 ease-out w-full max-w-[280px] text-center animate-compile"
+            class="group p-6 border border-zinc-900/40 bg-white hover:bg-black hover:border-zinc-900 transition-all duration-500 ease-out w-full max-w-[320px] lg:max-w-[280px] text-center animate-compile"
             style="animation-delay: 1900ms;"
           >
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[10px] block mb-2 transition-colors duration-500">// LEVEL 02 // STRUCTURE</span>
@@ -154,11 +155,11 @@
             </p>
           </div>
 
-          <div class="w-px bg-zinc-900 hidden lg:block animate-draw-v" style="height: 48px; animation-delay: 2700ms;"></div>
+          <div class="w-px bg-zinc-900 animate-draw-v h-8 lg:h-12" style="animation-delay: 2700ms;"></div>
 
           <!-- LEVEL 3: RADICAL OPENNESS -->
           <div
-            class="group p-5 border border-zinc-900/20 bg-white hover:bg-black hover:border-zinc-900/60 transition-all duration-500 ease-out w-full max-w-[250px] text-center animate-compile"
+            class="group p-5 border border-zinc-900/20 bg-white hover:bg-black hover:border-zinc-900/60 transition-all duration-500 ease-out w-full max-w-[320px] lg:max-w-[250px] text-center animate-compile"
             style="animation-delay: 2900ms;"
           >
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[9px] block mb-1 transition-colors duration-500">// LAYER 03 // SYNTAX</span>
@@ -174,7 +175,7 @@
           <div class="w-px bg-zinc-900 absolute left-1/2 -translate-x-1/2 hidden lg:block animate-draw-v" style="height: 32px; top: -32px; animation-delay: 1600ms;"></div>
 
           <div
-            class="group p-6 border border-zinc-900/40 bg-white hover:bg-black hover:border-zinc-900 transition-all duration-500 ease-out w-full max-w-[280px] text-center animate-compile"
+            class="group p-6 border border-zinc-900/40 bg-white hover:bg-black hover:border-zinc-900 transition-all duration-500 ease-out w-full max-w-[320px] lg:max-w-[280px] text-center animate-compile"
             style="animation-delay: 2100ms;"
           >
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[10px] block mb-2 transition-colors duration-500">// LEVEL 02 // EVOLUTION</span>
@@ -184,11 +185,11 @@
             </p>
           </div>
 
-          <div class="w-px bg-zinc-900 hidden lg:block animate-draw-v" style="height: 48px; animation-delay: 2900ms;"></div>
+          <div class="w-px bg-zinc-900 animate-draw-v h-8 lg:h-12" style="animation-delay: 2900ms;"></div>
 
           <!-- LEVEL 3: VIBE INTEGRATION -->
           <div
-            class="group p-5 border border-zinc-900/20 bg-white hover:bg-black hover:border-zinc-900/60 transition-all duration-500 ease-out w-full max-w-[250px] text-center animate-compile"
+            class="group p-5 border border-zinc-900/20 bg-white hover:bg-black hover:border-zinc-900/60 transition-all duration-500 ease-out w-full max-w-[320px] lg:max-w-[250px] text-center animate-compile"
             style="animation-delay: 3100ms;"
           >
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[9px] block mb-1 transition-colors duration-500">// LAYER 03 // ORCHESTRA</span>
@@ -203,7 +204,7 @@
     </div>
 
     <!-- LEVEL 4: THE INTEGRATED ANCHOR CORE -->
-    <div class="w-full flex flex-col items-center ">
+    <div class="w-full flex flex-col items-center pt-12 lg:pt-0">
       <!-- Converging tracks: aligned to the four column centres (12.5 / 37.5 / 62.5 / 87.5%) -->
       <div class="w-[75%] h-12 hidden lg:block relative">
         <div class="w-px h-full bg-zinc-900 absolute left-0 animate-draw-v" style="animation-delay: 3300ms;"></div>
@@ -217,7 +218,7 @@
 
       <!-- Core Convergence Data Frame -->
       <div
-        class="border border-zinc-900 bg-black text-white p-6 max-w-3xl w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 animate-compile"
+        class="border border-zinc-900 bg-black text-white p-5 sm:p-6 w-full max-w-[320px] sm:max-w-2xl lg:max-w-3xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 animate-compile"
         style="animation-delay: 4100ms;"
       >
         <div>

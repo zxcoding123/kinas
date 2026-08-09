@@ -38,11 +38,12 @@
                     We begin at the bedrock. Building immutable backends centered around strict data integrity, highly optimized API routing pipelines, and secure distributed authentication states.
                 </p>
             </div>
-        </div>
 
-        <!-- Directional Arrow Link 1 -> 2 -->
-        <div class="absolute left-16 top-[136px] h-16 w-px bg-zinc-900/30 flex items-end justify-center hidden md:flex opacity-0 animate-[fadeSlideIn_0.8s_ease-out_forwards] [animation-delay:200ms]">
-            <span class="text-[10px] text-zinc-400 translate-y-1 select-none">↓</span>
+            <!-- Directional Arrow Link 1 -> 2. top-full pins it to this step's own bottom edge,
+                 so it stays aligned no matter how the copy reflows. -->
+            <div class="absolute left-16 top-full h-16 w-px bg-zinc-900/30 hidden md:flex items-end justify-center opacity-0 animate-[fadeSlideIn_0.8s_ease-out_forwards] [animation-delay:200ms]">
+                <span class="text-[10px] text-zinc-400 translate-y-1 select-none">↓</span>
+            </div>
         </div>
 
         <!-- STEP 02 -->
@@ -54,11 +55,11 @@
                     Constructing versatile network layers engineered for environmental agility. Deploying flexible data synchronization pipelines that seamlessly shift between centralized cloud systems and isolated local node mechanics.
                 </p>
             </div>
-        </div>
 
-        <!-- Directional Arrow Link 2 -> 3 -->
-        <div class="absolute left-16 top-[336px] h-16 w-px bg-zinc-900/30 flex items-end justify-center hidden md:flex opacity-0 animate-[fadeSlideIn_0.8s_ease-out_forwards] [animation-delay:600ms]">
-            <span class="text-[10px] text-zinc-400 translate-y-1 select-none">↓</span>
+            <!-- Directional Arrow Link 2 -> 3 -->
+            <div class="absolute left-16 top-full h-16 w-px bg-zinc-900/30 hidden md:flex items-end justify-center opacity-0 animate-[fadeSlideIn_0.8s_ease-out_forwards] [animation-delay:600ms]">
+                <span class="text-[10px] text-zinc-400 translate-y-1 select-none">↓</span>
+            </div>
         </div>
 
         <!-- STEP 03 -->
@@ -73,11 +74,11 @@
             <div class="hidden md:flex justify-end pt-1">
                 <span class="text-zinc-300 group-hover:text-zinc-700 text-xs transition-colors duration-500">[ FLOW_SYNTHESIS ]</span>
             </div>
-        </div>
 
-        <!-- Directional Arrow Link 3 -> 4 -->
-        <div class="absolute left-16 top-[536px] h-16 w-px bg-zinc-900/30 flex items-end justify-center hidden md:flex opacity-0 animate-[fadeSlideIn_0.8s_ease-out_forwards] [animation-delay:1000ms]">
-            <span class="text-[10px] text-zinc-400 translate-y-1 select-none">↓</span>
+            <!-- Directional Arrow Link 3 -> 4 -->
+            <div class="absolute left-16 top-full h-16 w-px bg-zinc-900/30 hidden md:flex items-end justify-center opacity-0 animate-[fadeSlideIn_0.8s_ease-out_forwards] [animation-delay:1000ms]">
+                <span class="text-[10px] text-zinc-400 translate-y-1 select-none">↓</span>
+            </div>
         </div>
 
         <!-- STEP 04 -->

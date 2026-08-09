@@ -7,6 +7,12 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Once the hero scrolls past, the header docks as a fixed 80px bar. Without this,
+   every in-page anchor lands with its heading tucked underneath it. */
+[id] {
+    scroll-margin-top: 5rem;
+}
+
 /* Native cursor is replaced by the circular follower — only on pointer:fine devices */
 html.custom-cursor-active,
 html.custom-cursor-active * {

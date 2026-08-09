@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import SideRays from './SideRays.svelte';
+    import { navLinks, navIndex } from '$lib/nav.js';
 
     const text = 'QUINAS';
     let showCursor = $state(false);
@@ -11,6 +12,12 @@
     let isDesktop = $state(false);
     let cursorPopped = $state(false);
     let isHoveringLink = $state(false);
+    let pageLoaded = $state(false);
+    let raysReady = $state(false);
+
+    // The ray layer only reveals once the page has genuinely settled: all subresources
+    // done (window load), the hero copy released, and the shader's first frame painted.
+    const raysVisible = $derived(pageLoaded && showContent && raysReady);
 
     // Real mouse coordinates
     let mouse = { x: -100, y: -100 };
@@ -33,6 +40,15 @@
             showContent = true;
             if (isDesktop) showCursor = true;
         }, 1550);
+
+        // `load` has already fired by the time a client-side navigation mounts this,
+        // so check readyState first rather than waiting for an event that never comes.
+        const onLoad = () => (pageLoaded = true);
+        if (document.readyState === 'complete') {
+            pageLoaded = true;
+        } else {
+            window.addEventListener('load', onLoad, { once: true });
+        }
 
         /** @type {ReturnType<typeof setTimeout> | undefined} */
         let popTimer;
@@ -85,6 +101,7 @@
 
         return () => {
             clearTimeout(timer);
+            window.removeEventListener('load', onLoad);
             if (popTimer) clearTimeout(popTimer);
             if (handleMouseMove) window.removeEventListener('mousemove', handleMouseMove);
             if (frameId) cancelAnimationFrame(frameId);
@@ -113,15 +130,17 @@
         <span class="font-mono text-xs tracking-[0.3em] text-white font-bold">QUINAS</span>
     </div>
 
-    <!-- Minimalist Navigation Layout -->
-    <nav class="hidden md:flex items-center gap-12 font-mono text-[10px] tracking-widest text-zinc-400">
-        <a href="#about" class="hover:text-white transition-colors duration-300">// 01. IDENTITY</a>
-        <a href="#blueprint" class="hover:text-white transition-colors duration-300">// 02. BLUEPRINT</a>
-        <a href="#services" class="hover:text-white transition-colors duration-300">// 03. SERVICES</a>
+    <!-- Minimalist Navigation Layout. The full seven-section list only clears the
+         floating pill from lg up; below that it lives in the drawer. Labels drop the
+         `NN.` index here (the footer sitemap keeps it) purely to buy the width. -->
+    <nav class="hidden lg:flex items-center gap-4 xl:gap-7 font-mono text-[10px] tracking-wider xl:tracking-widest text-zinc-400">
+        {#each navLinks as link (link.href)}
+            <a href={link.href} class="whitespace-nowrap hover:text-white transition-colors duration-300">// {link.label}</a>
+        {/each}
     </nav>
 
     <!-- Operational State Indicator (desktop) -->
-    <div class="hidden md:flex items-center gap-2 font-mono text-[9px] text-zinc-500 uppercase tracking-wider">
+    <div class="hidden xl:flex items-center gap-2 font-mono text-[9px] text-zinc-500 uppercase tracking-wider">
         <span class="w-1.5 h-1.5 rounded-full bg-green-500 opacity-80 shadow-[0_0_8px_rgba(255,255,255,0.5)] animate-pulse"></span>
         <span>SYS_ACTIVE</span>
     </div>
@@ -129,7 +148,7 @@
     <!-- Mobile Menu Toggle -->
     <button
         type="button"
-        class="md:hidden flex flex-col items-end justify-center gap-1.5 w-8 h-8 shrink-0"
+        class="lg:hidden flex flex-col items-end justify-center gap-1.5 w-8 h-8 shrink-0"
         aria-label="Toggle navigation menu"
         aria-expanded={mobileNavOpen}
         onclick={() => (mobileNavOpen = !mobileNavOpen)}
@@ -142,15 +161,18 @@
 
 <!-- Mobile Navigation Drawer -->
 <div
-    class="fixed top-20 left-0 w-full bg-black/95 backdrop-blur-md border-b border-zinc-900 z-40 md:hidden flex flex-col font-mono text-xs tracking-widest text-zinc-400 transition-all duration-300 overflow-hidden select-none"
-    class:max-h-60={mobileNavOpen}
+    class="fixed top-20 left-0 w-full bg-black/95 backdrop-blur-md border-b border-zinc-900 z-40 lg:hidden flex flex-col font-mono text-xs tracking-widest text-zinc-400 transition-all duration-300 overflow-y-auto overscroll-contain select-none"
     class:opacity-100={mobileNavOpen}
-    class:max-h-0={!mobileNavOpen}
     class:opacity-0={!mobileNavOpen}
+    style:max-height={mobileNavOpen ? 'calc(100dvh - 5rem)' : '0px'}
 >
-    <a href="#about" class="px-8 py-4 border-b border-zinc-900/60 hover:text-white transition-colors duration-300" onclick={() => (mobileNavOpen = false)}>// 01. IDENTITY</a>
-    <a href="#blueprint" class="px-8 py-4 border-b border-zinc-900/60 hover:text-white transition-colors duration-300" onclick={() => (mobileNavOpen = false)}>// 02. BLUEPRINT</a>
-    <a href="#services" class="px-8 py-4 hover:text-white transition-colors duration-300" onclick={() => (mobileNavOpen = false)}>// 03. SERVICES</a>
+    {#each navLinks as link, i (link.href)}
+        <a
+            href={link.href}
+            class="px-8 py-4 border-b border-zinc-900/60 last:border-b-0 hover:text-white transition-colors duration-300"
+            onclick={() => (mobileNavOpen = false)}
+        >// {navIndex(i)}. {link.label}</a>
+    {/each}
 </div>
 
 <!-- Hero Section Entry Block -->
@@ -159,9 +181,15 @@
     bind:this={heroEl}
     class="flex h-screen w-screen items-center justify-center bg-black overflow-hidden select-none relative"
 >
-    <!-- Ambient WebGL Ray Accent (Intro only) -->
-    <div class="absolute inset-0 z-0 pointer-events-none">
+    <!-- Ambient WebGL Ray Accent (Intro only). Held at opacity-0 until the page has
+         fully loaded and the shader reports its first painted frame. -->
+    <div
+        class="absolute inset-0 z-0 pointer-events-none transition-opacity duration-[1600ms] ease-out motion-reduce:transition-none"
+        class:opacity-100={raysVisible}
+        class:opacity-0={!raysVisible}
+    >
         <SideRays
+            onReady={() => (raysReady = true)}
             speed={2.5}
             rayColor1="#EAB308"
             rayColor2="#96c8ff"

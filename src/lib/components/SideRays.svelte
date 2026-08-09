@@ -14,7 +14,11 @@
         blend = 0.75,
         falloff = 1.6,
         opacity = 1.0,
-        class: className = ''
+        class: className = '',
+        // Fired once, after the shader has actually painted its first frame. Lets the
+        // parent hold the layer hidden until there is something real to reveal, rather
+        // than fading in a blank canvas while the context is still warming up.
+        onReady = () => {}
     } = $props();
 
     const hexToRgb = (hex) => {
@@ -44,6 +48,9 @@
     let mesh = null;
     let animationId = null;
     let cleanupFn = null;
+    // Deliberately not reset by cleanupFn — scrolling the hero out of view tears the
+    // context down and rebuilds it, and the parent shouldn't be re-notified for that.
+    let hasNotifiedReady = false;
 
     const vert = `
 attribute vec2 position;
@@ -168,6 +175,10 @@ void main() {
                 animationId = requestAnimationFrame(loop);
             } catch (e) {
                 return;
+            }
+            if (!hasNotifiedReady) {
+                hasNotifiedReady = true;
+                onReady();
             }
         };
 

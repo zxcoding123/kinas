@@ -1,13 +1,12 @@
 <script>
+    import { navLinks, navIndex } from '$lib/nav.js';
+
     const year = new Date().getFullYear();
 
-    const sitemap = [
-        { label: '// 01. IDENTITY', href: '#about' },
-        { label: '// 02. BLUEPRINT', href: '#blueprint' },
-        { label: '// 03. SERVICES', href: '#services' },
-        { label: '// 04. LEDGER', href: '#ledger' },
-        { label: '// 05. CONTACT', href: '#contact' }
-    ];
+    const sitemap = navLinks.map((link, i) => ({
+        ...link,
+        label: `// ${navIndex(i)}. ${link.label}`
+    }));
 
     const system = [
         { label: 'LOCATION', value: 'ZAMBOANGA, PH' },
