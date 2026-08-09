@@ -36,9 +36,23 @@
         // mouse/trackpad — skip it entirely on touch devices (no pointer:fine).
         isDesktop = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: fine)').matches;
 
+        const prefersReducedMotion =
+            typeof window.matchMedia === 'function' &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Hold the page still while the QUINAS letters land, so the entrance can't be
+        // scrolled past mid-animation. Only engage it when the visitor actually starts
+        // at the hero — a reload deeper in the page restores its scroll position, and
+        // locking there would freeze them somewhere arbitrary for no reason.
+        const releaseScroll = () => document.documentElement.classList.remove('intro-scroll-locked');
+        if (!prefersReducedMotion && window.scrollY < 8) {
+            document.documentElement.classList.add('intro-scroll-locked');
+        }
+
         const timer = setTimeout(() => {
             showContent = true;
             if (isDesktop) showCursor = true;
+            releaseScroll();
         }, 1550);
 
         // `load` has already fired by the time a client-side navigation mounts this,
@@ -101,6 +115,7 @@
 
         return () => {
             clearTimeout(timer);
+            releaseScroll();
             window.removeEventListener('load', onLoad);
             if (popTimer) clearTimeout(popTimer);
             if (handleMouseMove) window.removeEventListener('mousemove', handleMouseMove);

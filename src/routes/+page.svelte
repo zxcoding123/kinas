@@ -9,6 +9,14 @@
 	import Footer from '$lib/components/Footer.svelte';
 </script>
 
+<svelte:head>
+	<title>QUINAS — Systems Engineered With Intent</title>
+	<meta
+		name="description"
+		content="Product engineering studio building high-fidelity digital infrastructure — stripped of noise, calculated by design."
+	/>
+</svelte:head>
+
 <Intro />
 <Manifesto />
 <Ecosystem />

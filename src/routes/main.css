@@ -13,6 +13,17 @@ html {
     scroll-margin-top: 5rem;
 }
 
+/* Applied by Intro for the duration of the hero entrance so the animation can't be
+   scrolled past. overscroll-behavior stops the gesture chaining to the viewport;
+   touch-action blocks the pan on touch devices, where overflow:hidden alone is
+   unreliable, while still permitting pinch-zoom. */
+html.intro-scroll-locked,
+html.intro-scroll-locked body {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: pinch-zoom;
+}
+
 /* Native cursor is replaced by the circular follower — only on pointer:fine devices */
 html.custom-cursor-active,
 html.custom-cursor-active * {

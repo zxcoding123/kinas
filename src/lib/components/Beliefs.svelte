@@ -181,7 +181,7 @@
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[10px] block mb-2 transition-colors duration-500">// LEVEL 02 // EVOLUTION</span>
             <h4 class="font-sans text-base font-medium text-black group-hover:text-white transition-colors duration-500">SYSTEM FLEXIBILITY</h4>
             <p class="font-sans text-xs text-zinc-500 group-hover:text-zinc-400 font-light mt-2 leading-relaxed transition-colors duration-500">
-              Agile structural composition. We configure networks and code loops that smoothly adapt to evolving scaling strains.
+              Agile structural composition. We configure networks and code loops that smoothly scales and adapts.
             </p>
           </div>
 
@@ -195,7 +195,7 @@
             <span class="text-zinc-400 group-hover:text-zinc-600 text-[9px] block mb-1 transition-colors duration-500">// LAYER 03 // ORCHESTRA</span>
             <h5 class="font-sans text-sm font-medium text-zinc-800 group-hover:text-zinc-200 transition-colors duration-500">Vibe Integration</h5>
             <p class="font-sans text-[11px] text-zinc-400 group-hover:text-zinc-500 font-light mt-1.5 leading-relaxed transition-colors duration-500">
-              We don't fight automation. We orchestrate AI generation tooling for speed while maintaining strict manual architectural governance.
+              We live automation. We orchestrate AI generation tooling for speed with strict manual architectural governance.
             </p>
           </div>
         </div>
